@@ -1,5 +1,5 @@
 export const authenticateMiddleware = (req: any, res: any, next: any) => {
-  if (req.path.includes('public')) { next() }
+  if (req.path.includes('public')) { return next() }
 
-  next()
+  return next()
 }

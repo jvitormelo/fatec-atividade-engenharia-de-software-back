@@ -1,6 +1,6 @@
 import AbstractController from './AbstractController'
-import { User } from '../database/typeORM/entity'
-import { getRepository } from 'typeorm'
+import { Users } from '../database/typeORM/entity'
+import { getRepository, getManager } from 'typeorm'
 
 class UserController extends AbstractController {
   async index (req:any, res:any, next: any) {
@@ -10,11 +10,11 @@ class UserController extends AbstractController {
   async find (req:any, res:any, next: any) {}
   async create (req:any, res:any, next: any) {
     const { name, password, email } = req.body
-    const userRepo = await getRepository(User)
-    const createdUser = await userRepo.save({
-      name, password, email
-    })
-    res.json({ createdUser: createdUser || {} })
+    const manager = getManager()
+    const createdUser = await manager.save(Users, { name, password, email })
+    // const usersRepository = getRepository(Users)
+    // const createdUser = usersRepository.save({ name, password, email })
+    res.json({ createdUser })
   }
 
   async update (req:any, res:any, next: any) {}
