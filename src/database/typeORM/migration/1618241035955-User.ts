@@ -12,15 +12,19 @@ export class User1618241035955 implements MigrationInterface {
         },
         {
           name: 'name',
-          type: 'string'
+          type: 'varchar'
         },
         {
           name: 'password',
-          type: 'string'
+          type: 'varchar'
+        },
+        {
+          name: 'birth_date',
+          type: 'varchar'
         },
         {
           name: 'email',
-          type: 'string',
+          type: 'varchar',
           isUnique: true
         }
       ]
