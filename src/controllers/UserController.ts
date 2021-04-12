@@ -3,10 +3,6 @@ import { User } from '../database/typeORM/entity'
 import { getRepository } from 'typeorm'
 
 class UserController extends AbstractController {
-  constructor () {
-    super()
-  }
-
   async index (req:any, res:any, next: any) {
     res.json({ token: '123' })
   }
