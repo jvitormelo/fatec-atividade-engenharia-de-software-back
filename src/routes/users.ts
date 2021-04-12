@@ -1,12 +1,11 @@
 import express from 'express'
 import globalCatcher from '../utils/globalCatcher'
 import UserController from '../controllers/UserController'
-import asyncHandler from 'express-async-handler'
 const router = express.Router()
 
 const index = globalCatcher(async (req: any, res: any, next: any) => UserController.index(req, res, next))
 const find = globalCatcher(async (req: any, res: any, next: any) => UserController.find(req, res, next))
-const create = asyncHandler(async (req: any, res: any, next: any) => {
+const create = globalCatcher(async (req: any, res: any, next: any) => {
   await UserController.create(req, res, next)
 })
 const update = globalCatcher(async (req: any, res: any, next: any) => UserController.update(req, res, next))
