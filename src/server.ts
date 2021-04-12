@@ -6,7 +6,7 @@ import { databaseConnection } from './database/typeORM/connection'
 const server = http.createServer(app)
 server.listen(process.env.PORT || 3000, async () => {
   try {
-    const connection = await databaseConnection()
+    await databaseConnection()
 
     // await mongoose.connect(process.env, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log('Server online')

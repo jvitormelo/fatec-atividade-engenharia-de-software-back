@@ -3,10 +3,6 @@ import { User } from '../database/typeORM/entity'
 import { getRepository } from 'typeorm'
 
 class UserController extends AbstractController {
-  constructor () {
-    super()
-  }
-
   async index (req:any, res:any, next: any) {
     res.json({ token: '123' })
   }
@@ -15,10 +11,10 @@ class UserController extends AbstractController {
   async create (req:any, res:any, next: any) {
     const { name, password, email } = req.body
     const userRepo = await getRepository(User)
-    await userRepo.save({
+    const createdUser = await userRepo.save({
       name, password, email
     })
-    res.json({ name, password, email })
+    res.json({ createdUser: createdUser || {} })
   }
 
   async update (req:any, res:any, next: any) {}
