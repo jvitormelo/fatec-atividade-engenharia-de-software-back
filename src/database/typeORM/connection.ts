@@ -13,8 +13,9 @@ export const databaseConnection = async () => {
     ],
     ssl: true,
     extra: {
-      ssl: true,
-      rejectUnauthorized: false
+      ssl: {
+        rejectUnauthorized: false
+      }
     },
     synchronize: true,
     logging: false
