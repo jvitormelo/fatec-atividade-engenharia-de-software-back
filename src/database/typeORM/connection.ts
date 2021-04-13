@@ -9,15 +9,15 @@ export const databaseConnection = async () => {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
     entities: [
-      'src/database/typeORM/entity/**/*.ts', 'dist/src/database/typeORM/entity/**/*.js'
+      'src/database/typeORM/entity/**/*.ts'
     ],
-    synchronize: true,
     ssl: true,
     extra: {
       ssl: {
         rejectUnauthorized: false
       }
     },
+    synchronize: true,
     logging: false
   })
 }
