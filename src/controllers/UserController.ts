@@ -20,7 +20,7 @@ class UserController extends AbstractController {
 
   async create (req:Request, res:Response, next: NextFunction) {
     const { name, email, password } = req.body
-    const createdUser = await getRepository(Users).create({ name, email, password })
+    const createdUser = await getRepository(Users).save({ name, email, password })
     res.json(ResponseFactory.createResponse('Usuário criado com sucesso', createdUser || {}))
   }
 
