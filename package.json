@@ -2,11 +2,12 @@
   "name": "apiboer",
   "version": "0.0.0",
   "private": true,
+  "main": "src/server.js",
   "engines": {
     "node": "12.x"
   },
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc --project ./",
     "lint": "eslint src/** --fix",
