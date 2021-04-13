@@ -1,3 +1,7 @@
+import { Users } from './src/database/typeORM/entity/Users'
+import { Products } from './src/database/typeORM/entity/Products'
+
+// 'src/database/typeORM/entity/**/*.ts', 'dist/src/database/typeORM/entity/**/*.js'
 module.exports = {
   type: 'postgres',
   host: process.env.DATABASE_HOST,
@@ -14,7 +18,8 @@ module.exports = {
   },
   logging: false,
   entities: [
-    'src/database/typeORM/entity/**/*.ts', 'dist/src/database/typeORM/entity/**/*.js'
+    Users,
+    Products
   ],
   migrations: [
     'src/database/typeORM/entity/**/*.ts', 'dist/src/database/typeORM/entity/**/*.js'
