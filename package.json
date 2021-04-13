@@ -7,9 +7,9 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.ts",
     "build": "tsc --project ./",
+    "start": "node dist/src/server.js",
+    "dev": "nodemon src/server.ts",
     "postinstall": "tsc",
     "lint": "eslint src/** --fix",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
