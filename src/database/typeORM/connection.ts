@@ -1,5 +1,4 @@
 import { createConnection } from 'typeorm'
-import { Users } from './entity'
 
 export const databaseConnection = async () => {
   return process.env.MODE === 'DEV'
@@ -11,7 +10,7 @@ export const databaseConnection = async () => {
         password: process.env.LOCAL_DATABASE_PASSWORD,
         database: process.env.LOCAL_DATABASE,
         entities: [
-          Users
+          'src/database/typeORM/entity/**/*.ts'
         ],
         synchronize: true,
         logging: false
@@ -24,7 +23,7 @@ export const databaseConnection = async () => {
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE,
       entities: [
-        Users
+        'src/database/typeORM/entity/**/*.ts'
       ],
       synchronize: true,
       logging: false

@@ -1,21 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity()
-export class Users {
+export class Products {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column({ length: 50 })
+    @Column()
     name!: string;
 
+    @Column({})
+    category!: string;
+
     @Column()
-    password!: string;
+    description!: string;
 
-    @Column({ unique: true })
-    email!: string;
-
-    @Column({ default: false })
-    isAdmin!: boolean
+    @Column({ type: 'float' })
+    price!: number;
 
     @Column({ default: Date.now() })
     createdAt!: string

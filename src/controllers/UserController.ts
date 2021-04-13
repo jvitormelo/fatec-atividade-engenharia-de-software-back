@@ -1,71 +1,40 @@
 import AbstractController from './AbstractController'
-import { User } from '../database/typeORM/entity'
-import { EntityManager, getManager, getRepository } from 'typeorm'
 import { NextFunction, Request, Response } from 'express'
+import { getRepository } from 'typeorm'
+import { Users } from '../database/typeORM/entity/Users'
 import ResponseFactory from '../services/ResponseFactory'
+import { ErrorHandler } from '../services/errorAPI'
 
 class UserController extends AbstractController {
-  private manager: EntityManager
-
-  constructor () {
-    super()
-    this.manager = this.getManager()
+  async index (req:Request, res:Response, next: NextFunction) {
+    const response = await getRepository(Users).find()
+    res.json(ResponseFactory.createResponse('Usuarios listados', response || []))
   }
 
-  getManager () {
-    const manager = getManager('users')
-    return manager
-  }
-
-  async index (req: Request, res: Response, next: NextFunction) {
-    const indexedUsers = await this.manager.find('users')
-    res.json(ResponseFactory.createResponse('Usuários listados com sucesso', indexedUsers))
-  }
-
-  async find (req: Request, res: Response, next: NextFunction) {
-    const foundUser = await this.manager.findByIds('users', [req.params.id])
-
-    if (!foundUser) {
-      res.json(ResponseFactory.createResponse('Não foi possível encontrar esse usuário', {}))
-    } else {
-      res.json(ResponseFactory.createResponse('Usuário encontrado com sucesso', foundUser))
-    }
-  }
-
-  async create (req: any, res: any, next: any) {
-    const {
-      name,
-      password,
-      email
-    } = req.body
-    const userRepo = await getRepository(User)
-    const createdUser = await userRepo.save({
-      name,
-      password,
-      email
-    })
-    res.json({ createdUser: createdUser || {} })
-  }
-
-  async update (req: Request, res: Response, next: NextFunction) {
-    const { name, password, email } = req.body
-
-    const updatedUser = await this.manager.update('users', { email }, { name, password, email })
-
-    res.json(ResponseFactory.createResponse('Usuário atualizado com sucesso', updatedUser))
-  }
-
-  async destroy (req: Request, res: Response, next: NextFunction) {
+  async find (req:Request, res:Response, next: NextFunction) {
     const { id } = req.params
-
-    const destroyedUser = await this.manager.delete('users', id)
-
-    res.json(ResponseFactory.createResponse('Usuário deletado com sucesso', destroyedUser))
+    const user = await getRepository(Users).findOne(id)
+    if (!user) throw new ErrorHandler(404, 'Usuário não encontrado')
+    res.json(ResponseFactory.createResponse('Usuário encontrado', user || {}))
   }
 
-  // TODO: LOGIN E CONTROLE DE SESSÃO NÃO FAZEM PARTE DA ENTIDADE DE USUÁRIO
-  async login (req: any, res: any, next: any) {
+  async create (req:Request, res:Response, next: NextFunction) {
+    const { name, email, password } = req.body
+    const createdUser = await getRepository(Users).create({ name, email, password })
+    res.json(ResponseFactory.createResponse('Usuário criado com sucesso', createdUser || {}))
+  }
+
+  async update (req:Request, res:Response, next: NextFunction) {
+    const { name, email, password } = req.body
+    const { id } = req.params
+    const updatedUser = await getRepository(Users).update({ id: Number(id) }, { name, email, password })
+    res.json(ResponseFactory.createResponse('Usuário atualizado com sucesso', updatedUser || {}))
+  }
+
+  async destroy (req:Request, res:Response, next: NextFunction) {
+    const { id } = req.params
+    const response = getRepository(Users).delete({ id: Number(id) })
+    res.json(ResponseFactory.createResponse('Usuário deletado com sucesso', response || {}))
   }
 }
-
 export default new UserController()

@@ -26,6 +26,11 @@ export class Users1618241035955 implements MigrationInterface {
           name: 'email',
           type: 'varchar',
           isUnique: true
+        },
+        {
+          name: 'createdAt',
+          type: 'varchar',
+          default: Date.now()
         }
       ]
     }))

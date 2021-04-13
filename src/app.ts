@@ -13,3 +13,16 @@ app.use(express.urlencoded({ extended: false }))
 app.use(routes)
 
 export default app
+
+interface IUser {
+    id: number,
+    name: string,
+}
+
+declare global {
+    namespace Express {
+        export interface Request {
+            user: IUser
+        }
+    }
+}
