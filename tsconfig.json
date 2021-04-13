@@ -3,7 +3,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "rootDir": "./",
-    "outDir": "./build",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
     "emitDecoratorMetadata": true,
