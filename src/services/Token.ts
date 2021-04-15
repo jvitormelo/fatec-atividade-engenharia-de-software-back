@@ -1,13 +1,15 @@
 import JWT from 'jsonwebtoken'
 class Token {
   async create (payload: object) {
-    // @ts-ignore
-    return JWT.sign(payload, process.env.TOKEN_SECRET)
+    return JWT.sign(payload, process.env.TOKEN_SECRET || '')
   }
 
   async verify (token:string) {
-    // @ts-ignore
-    return JWT.verify(token, process.env.TOKEN_SECRET)
+    try {
+      return JWT.verify(token, process.env.TOKEN_SECRET || '')
+    } catch (e) {
+      return null
+    }
   }
 }
 export default new Token()

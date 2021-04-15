@@ -2,8 +2,6 @@ import { createConnection } from 'typeorm'
 import { Users } from './entity/Users'
 import { Products } from './entity/Products'
 
-// 'src/database/typeORM/entity/**/*.ts'
-
 export const databaseConnection = async () => {
   return createConnection({
     type: 'postgres',

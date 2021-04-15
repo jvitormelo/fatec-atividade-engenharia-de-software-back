@@ -14,7 +14,7 @@ app.use(routes)
 
 export default app
 
-interface IUser {
+export interface IUser {
     id: number,
     name: string,
 }
@@ -25,4 +25,5 @@ declare global {
             user: IUser
         }
     }
+
 }
