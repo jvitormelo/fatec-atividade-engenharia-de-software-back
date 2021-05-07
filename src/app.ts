@@ -20,7 +20,7 @@ export interface IUser {
 }
 
 declare global {
-    namespace Express {
+    export namespace Express {
         export interface Request {
             user: IUser
         }

@@ -13,10 +13,12 @@
     "postinstall": "tsc",
     "lint": "eslint src/** --fix",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "migrate": "yarn typeorm migration:run",
+
+    "migrate": "npx prisma migrate dev --name init",
     "revert": "yarn typeorm migration:revert"
   },
   "dependencies": {
+    "@prisma/client": "2.22.1",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -27,6 +29,7 @@
     "mongoose": "^5.12.3",
     "morgan": "~1.9.1",
     "pg": "^8.5.1",
+    "prisma": "2.22.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.32"
   },
