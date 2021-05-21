@@ -7,9 +7,7 @@ class AbstractController {
     this.prisma = prisma
   }
 
-  async index (req:Request, res:Response, next: NextFunction):Promise<void> {
-  }
-
+  async index (req:Request, res:Response, next: NextFunction):Promise<void> {}
   async find (req:Request, res:Response, next: NextFunction):Promise<void> {}
   async create (req:Request, res:Response, next: NextFunction):Promise<void> {}
   async update (req:Request, res:Response, next: NextFunction):Promise<void> {}

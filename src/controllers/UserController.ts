@@ -1,7 +1,5 @@
 import AbstractController from './AbstractController'
 import { NextFunction, Request, Response } from 'express'
-import { getRepository } from 'typeorm'
-import { Users } from '../database/typeORM/entity/Users'
 import ResponseFactory from '../services/ResponseFactory'
 import { ErrorHandler } from '../services/errorAPI'
 
