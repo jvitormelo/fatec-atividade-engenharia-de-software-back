@@ -25,5 +25,4 @@ declare global {
             user: IUser
         }
     }
-
 }
