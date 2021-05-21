@@ -11,7 +11,6 @@ class UserController extends AbstractController {
 
   async find (req:Request, res:Response, next: NextFunction) {
     const { id } = req.params
-    console.log(req.user.id)
     const user = await this.prisma.users.findFirst({ where: { id: Number(id) ? Number(id) : req.user.id } })
     if (!user) throw new ErrorHandler(404, 'Usuário não encontrado')
     res.json(ResponseFactory.createResponse('Usuário encontrado', user || {}))
