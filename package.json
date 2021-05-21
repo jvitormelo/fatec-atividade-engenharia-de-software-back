@@ -13,7 +13,7 @@
     "postinstall": "tsc",
     "lint": "eslint src/** --ext ts,js --fix",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "migrate": "npx prisma migrate dev --name init",
+    "migrate": "npx src/prisma migrate dev --name init",
     "revert": "yarn typeorm migration:revert"
   },
   "dependencies": {
