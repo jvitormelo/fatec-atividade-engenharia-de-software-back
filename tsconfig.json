@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+
     "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
@@ -9,5 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "typeRoots": ["@types","./node_modules/@types"]
+
   }
 }
