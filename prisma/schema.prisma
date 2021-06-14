@@ -14,7 +14,7 @@ model persons {
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
 
   admin admins?
   user  users?
@@ -25,7 +25,7 @@ model users {
   personId  Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  person    persons   @relation(fields: [personId], references: [id])
+  person    persons  @relation(fields: [personId], references: [id])
 
   images images[]
 }
@@ -36,13 +36,14 @@ model admins {
   adminLevel Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  person     persons   @relation(fields: [personId], references: [id])
+  person     persons  @relation(fields: [personId], references: [id])
 
 }
 
 model logs {
   id        Int      @id @default(autoincrement())
   userId    Int
+  userType  String
   body      Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

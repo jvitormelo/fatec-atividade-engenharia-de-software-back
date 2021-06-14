@@ -26,11 +26,12 @@ export const logMiddleware = globalCatcher(async (req: ILogRequest, res : Respon
     platform: req.useragent.platform,
     source: req.useragent.source
   }
+
   await prisma.logs.create({
     data: {
       body: payload,
-      userId: req?.user?.id || 0
-
+      userId: req?.user?.id || 0,
+      userType: req?.user?.type || ''
     }
   })
 
