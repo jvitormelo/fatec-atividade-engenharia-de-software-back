@@ -7,16 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model person {
+model persons {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(50)
   password  String
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
 
-  admins admins?
-  users  users?
+  admin admins?
+  user  users?
 }
 
 model users {
@@ -24,7 +25,7 @@ model users {
   personId  Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  person    person   @relation(fields: [personId], references: [id])
+  person    persons   @relation(fields: [personId], references: [id])
 
   images images[]
 }
@@ -32,10 +33,10 @@ model users {
 model admins {
   id         Int      @id @default(autoincrement())
   personId   Int      @unique
-  adminLevel Int      @default(1)
+  adminLevel Int      @default(0)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  person     person   @relation(fields: [personId], references: [id])
+  person     persons   @relation(fields: [personId], references: [id])
 
 }
 

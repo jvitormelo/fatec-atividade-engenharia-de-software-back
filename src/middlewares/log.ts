@@ -2,7 +2,6 @@ import globalCatcher from '../utils/globalCatcher'
 import { NextFunction, Request, Response } from 'express'
 import { Details } from 'express-useragent'
 import { PrismaClient } from '@prisma/client'
-import users from '../views/persons/users'
 
 const prisma = new PrismaClient()
 
@@ -14,8 +13,8 @@ export const logMiddleware = globalCatcher(async (req: ILogRequest, res : Respon
   const body = { ...req.body }
   if (body.password) {
     delete body.password
+    body.base64 = body.base64 ? body.base64 : 'Houve envio de arquivos'
   }
-
   const payload = {
     path: req.path,
     headers: req.headers,
@@ -31,6 +30,7 @@ export const logMiddleware = globalCatcher(async (req: ILogRequest, res : Respon
     data: {
       body: payload,
       userId: req?.user?.id || 0
+
     }
   })
 

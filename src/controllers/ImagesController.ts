@@ -4,7 +4,7 @@ import { NextFunction, Request } from 'express'
 class ImagesController extends AbstractController {
   async index (req: Request, next: NextFunction): Promise<any> {
     return this.prisma.images.findMany({
-      where: { userId: req.user.id }
+      where: { userId: req.user.type === 'user' ? req.user.id : undefined }
     })
   }
 
@@ -12,7 +12,6 @@ class ImagesController extends AbstractController {
     const { id } = req.params
 
     return this.prisma.images.findUnique({ where: { id: Number(id) } })
-
   }
 
   async create (req: Request, next: NextFunction): Promise<any> {
@@ -21,6 +20,7 @@ class ImagesController extends AbstractController {
       description,
       base64
     } = req.body
+
     return this.prisma.images.create({
       data: {
         description,

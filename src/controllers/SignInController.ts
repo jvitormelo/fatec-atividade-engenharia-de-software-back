@@ -15,7 +15,6 @@ class SignInController extends AbstractController {
         where: {
           person: { email }
         }
-
       })
     } else {
       user = await this.prisma.admins.findFirst({
@@ -27,8 +26,13 @@ class SignInController extends AbstractController {
     }
 
     if (!user) throw new ErrorHandler(404, 'Usuário não encontrado')
-    if (user.person.password !== password) throw new ErrorHandler(404, 'Usuário ou senha incorretos')
-    const token = await Token.create({ id: user.id, name: user.person.name, type })
+
+    if (user.person.password !== password) { throw new ErrorHandler(404, 'Usuário ou senha incorretos') }
+    const token = await Token.create({
+      id: user.id,
+      name: user.person.name,
+      type
+    })
     // @ts-ignore
     delete user.person.password
     return { token, user }

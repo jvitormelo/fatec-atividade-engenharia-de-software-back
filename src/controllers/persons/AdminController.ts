@@ -17,7 +17,7 @@ class AdminController extends AbstractController {
   async create (req: Request, next: NextFunction) {
     const { name, email, password, adminLevel } = req.body
     try {
-      const createdPerson = await this.prisma.person.create({ data: { name, email, password } })
+      const createdPerson = await this.prisma.persons.create({ data: { name, email, password } })
       return await this.prisma.admins.create({
         data: { personId: createdPerson.id, adminLevel },
         include: { person: { select: { id: true, name: true, email: true } } }
@@ -40,7 +40,7 @@ class AdminController extends AbstractController {
     if (!foundAdmin) throw new ErrorHandler(400, 'Id inválido')
 
     const [updatedPerson, updatedAdmin] = await Promise.all([
-      this.prisma.person.update({
+      this.prisma.persons.update({
         data: {
           name,
           email,
@@ -59,7 +59,7 @@ class AdminController extends AbstractController {
     const { id } = req.params
     const foundAdmin = await this.prisma.admins.findFirst({ where: { id: Number(id) } })
     if (!foundAdmin) throw new ErrorHandler(400, 'Usuário não encontrado')
-    const [deletedAdmin, deletedPerson] = await Promise.all([this.prisma.admins.delete({ where: { id: Number(id) }, include: { person: true } }), this.prisma.person.delete({ where: { id: foundAdmin?.personId } })])
+    const [deletedAdmin, deletedPerson] = await Promise.all([this.prisma.admins.delete({ where: { id: Number(id) }, include: { person: true } }), this.prisma.persons.delete({ where: { id: foundAdmin?.personId } })])
     return { ...deletedAdmin, person: deletedPerson }
   }
 }

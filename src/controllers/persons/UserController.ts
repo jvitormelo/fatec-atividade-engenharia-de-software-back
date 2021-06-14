@@ -44,7 +44,7 @@ class UserController extends AbstractController {
       password
     } = req.body
     try {
-      const createdPerson = await this.prisma.person.create({
+      const createdPerson = await this.prisma.persons.create({
         data: {
           name,
           email,
@@ -85,7 +85,7 @@ class UserController extends AbstractController {
     const foundUser = await this.prisma.users.findUnique({ where: { id: Number(id) || req.user.id } })
     if (!foundUser) throw new ErrorHandler(400, 'Id inválido')
 
-    const updatedPerson = await this.prisma.person.update({
+    const updatedPerson = await this.prisma.persons.update({
       data: {
         name,
         email,
@@ -114,7 +114,7 @@ class UserController extends AbstractController {
       where: { id: Number(id) },
       include: { person: true }
     }),
-    this.prisma.person.delete({ where: { id: foundUser?.personId } }),
+    this.prisma.persons.delete({ where: { id: foundUser?.personId } }),
     this.prisma.images.deleteMany({ where: { userId: Number(id) } })]
     )
     return {
